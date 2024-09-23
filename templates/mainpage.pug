@@ -1,0 +1,78 @@
+mixin generatePosts(posts)
+  //- - console.log("posts is: ")
+  //- - console.log(posts)
+  each post in posts
+    div.post(id=`post${post.id}`)
+      - var n = 0
+      each key in post
+        if n == 1
+          span.postText "#{key}"
+        else if n == 2
+          span.like #{key} likes
+        else if n == 4
+          span.username - from #{key}
+        - n += 1
+      div.postBtns
+        button.likeBtn(id=`like${post.id}`)= "Like Post"
+          //- img(src="/images/likeButton.png", alt="Like Button")
+        button.deleteBtn(id=`delete${post.id}`)= "Delete Post"
+        button.editBtn(id=`edit${post.id}`)
+            a(href=`/editpage?postid=${post.id}`)= "Edit Post"
+
+
+doctype html
+html(lang="en")
+    head
+        meta(charset='UTF-8')
+        title Tweetr 
+        link(rel='stylesheet' href='css/main.css')
+        script(src='js/main.js' defer='')
+    body
+        header Tweetr
+        include navbar.pug
+        div.all
+            div.feedAndPageNav
+                div.feed
+                    h1 Your Feed
+                    +generatePosts(posts)          
+
+            div.sidebar
+                button(id="byLike")
+                  a(href='/bylike') Order by likes
+                button(id="byRecent")
+                  a(href='/') Order by recent posts
+                div.makePostDiv
+                  h2 Make Post
+                  label(for='postText') Post (100 character limit):
+                  input#postText(type='textarea' name='postText' required='')
+                  button(id="publishBtn")= "Make post!"
+                  
+
+        footer
+                h1 page
+                - let p = JSON.stringify(page)
+                - let p_next = JSON.stringify(page+1)
+                - let p_prev = JSON.stringify(page-1)
+                - console.log("page is: " + p)
+                div 
+
+                    if p != "1" 
+                        if byLike == "no"
+                            button 
+                                a(href="/?page=" + p_prev)= "prev"
+                        else 
+                            button 
+                              a(href="/bylike?page=" + p_prev)= "prev"
+                    if byLike == "no"
+                        button 
+                            a(href="/?page=" + p)= "current"
+                    else 
+                        button 
+                            a(href="/bylike?page=" + p)= "current"
+                    if posts.length == 10
+                        if byLike == "no"
+                            button 
+                                a(href="/?page=" + p_next)= "next" 
+                        else 
+                            button 
+                                a(href="/bylike?page=" + p_next)= "next" 

@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset='UTF-8')
+        title Contact Us
+        link(rel='stylesheet' href='css/main.css')
+        script(src='js/main.js' defer='')
+    body
+        header Tweetr
+        include navbar.pug
+        div#loginDiv
+            h1 Log in
+        #loginForm
+            form(action='/login' method='post')
+                .formInput
+                    label(for='username') Username: 
+                    input#username(type='text' name='username' required='')
+                .formInput
+                    label(for='password') Password: 
+                    input#password(type='password' name='password' required='')
+                .formInput
+                    label(for='submit') Submit: 
+                    input#submit(type='submit')
+            

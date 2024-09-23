@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset='UTF-8')
+        title Edit
+        link(rel='stylesheet' href='css/main.css')
+        script(src='js/main.js' defer='')
+    body
+        header Tweetr
+        include navbar.pug
+        div#editDiv
+            h1 Edit Post
+        div#editForm
+            label(for='editPostText') Post (100 character limit):
+            input#editPostText(type='text' name='postText' required='')
+            button(id="publishEditBtn")= "Edit post!"
+            span#hiddenPostId #{postId}
+            
